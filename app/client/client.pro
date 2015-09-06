@@ -82,7 +82,6 @@ SOURCES += \
     Wizard/AccessPage.cpp \
     Wizard/TourMetadataPage.cpp \
     Wizard/PluginsPage.cpp \
-    Wizard/TourRadioPage.cpp \
     Wizard/TourFinishPage.cpp \
     Wizard/PluginsInstallPage.cpp \
     Wizard/BootstrapProgressPage.cpp \
@@ -150,7 +149,6 @@ HEADERS += \
     Wizard/AccessPage.h \
     Wizard/TourMetadataPage.h \
     Wizard/PluginsPage.h \
-    Wizard/TourRadioPage.h \
     Wizard/TourFinishPage.h \
     Wizard/PluginsInstallPage.h \
     Wizard/BootstrapProgressPage.h \
