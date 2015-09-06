@@ -146,9 +146,7 @@ echo
 
 echo ======= Copying 3rd party frameworks ===========
 
-cp -R -H -f /Library/Frameworks/Growl.framework "$bundlePath/Contents/Frameworks"
 cp -R -H -f /Library/Frameworks/Sparkle.framework "$bundlePath/Contents/Frameworks"
-#cp -R -L -f /Library/Frameworks/Breakpad.framework "$bundlePath/Contents/Frameworks"
 
 echo
 
@@ -172,75 +170,7 @@ for plugin in $plugins; do
     echo
 done
 
-echo ======= Copying vlc plugins ===========
-
-mkdir -p "$bundlePath/Contents/plugins"
-
-vlcPlugins='libaccess_http_plugin.dylib
-            liba52tofloat32_plugin.dylib
-            liba52tospdif_plugin.dylib
-            libaudio_format_plugin.dylib
-            libconverter_fixed_plugin.dylib
-            libdolby_surround_decoder_plugin.dylib
-            libdtstofloat32_plugin.dylib
-            libdtstospdif_plugin.dylib
-            libmpgatofixed32_plugin.dylib
-            libscaletempo_plugin.dylib
-            libsimple_channel_mixer_plugin.dylib
-            libspeex_resampler_plugin.dylib
-            libtrivial_channel_mixer_plugin.dylib
-            libauhal_plugin.dylib
-            libugly_resampler_plugin.dylib
-            libfloat32_mixer_plugin.dylib
-            libmpeg_audio_plugin.dylib
-            libes_plugin.dylib
-            liblogger_plugin.dylib'
-
-
-for plugin in $vlcPlugins; do
-    pluginDir="/usr/local/lib/vlc/plugins"
-
-    mkdir -p "$bundlePath/Contents/plugins"
-    cp -R -H -f $pluginDir/$plugin "$bundlePath/Contents/plugins"
-    chmod -R u+w "$bundlePath/Contents/plugins"
-    
-    fixFrameworks "$bundlePath/Contents/plugins/$plugin"
-    fixLocalLibs "$bundlePath/Contents/plugins/$plugin"
-    echo
-done
-
-echo ======= Copying Qt translations ===========
-mkdir -p "$bundlePath/Contents/Resources/qm"
-
-translations="qt_de.qm
-                qt_es.qm 
-                qt_fr.qm 
-                qt_it.qm 
-                qt_ja.qm 
-                qt_pl.qm 
-                qt_pt.qm 
-                qt_ru.qm 
-                qt_sv.qm 
-                qt_tr.qm
-                qt_zh_CN.qm"
-
-for translation in $translations; do
-    if [ -d /Developer/Applications/Qt/plugins/ ]; then
-        translationDir=/Developer/Applications/Qt/translations
-    else
-        translationDir=`qmake --version |sed -n 's/^.*in \(\/.*$\)/\1/p'`/../translations
-    fi
-
-    cp -f $translationDir/$translation "$bundlePath/Contents/Resources/qm"
-    echo
-done
-
-
 echo ======= creating qt.conf ===========
 qtconf=$bundlePath/Contents/Resources/qt.conf
 echo [Paths] > "$qtconf"
 echo Plugins = ../plugins >> "$qtconf"
-
-
-echo ======= signing bundle ===========
-codesign -f -s "Developer ID Application: Last.fm" -i fm.last.Scrobbler "$bundlePath"

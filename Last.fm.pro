@@ -5,9 +5,7 @@ SUBDIRS = lib/logger \
           lib/listener \
           i18n \
           app/client \
-          app/twiddly \ 
-          app/fingerprinter
-          #app/boffin
+          app/twiddly
 
 unix:!mac:SUBDIRS -= app/twiddly
 
