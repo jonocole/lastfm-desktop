@@ -37,7 +37,6 @@
 class AboutDialog;
 class LicensesDialog;
 class MainWindow;
-class RadioWidget;
 class QAction;
 class ScrobbleInfoFetcher;
 class Drawer;
@@ -46,10 +45,6 @@ class UserManagerDialog;
 #ifdef Q_OS_MAC
 class MediaKey;
 #endif
-
-namespace lastfm { class RadioStation; }
-namespace unicorn { class Notify; }
-using unicorn::Notify;
 
 #ifdef Q_WS_X11
     class IpodDeviceLinux;
@@ -91,7 +86,6 @@ namespace audioscrobbler
         QPointer<QSystemTrayIcon> m_tray;
         QPointer<MainWindow> m_mw;
         QPointer<QMenuBar> m_menuBar;
-        QPointer<Notify> m_notify;
         QPointer<UserManagerDialog> m_userManager;
 #ifdef Q_OS_MAC
         QPointer<MediaKey> m_mediaKey;
@@ -198,7 +192,6 @@ namespace audioscrobbler
     private:
         static Argument argument( const QString& arg );
         void saveSkips() const;
-        int minutesUntilNextSkip( const lastfm::RadioStation& station );
 
 #ifdef Q_OS_MAC
         bool macEventFilter ( EventHandlerCallRef caller, EventRef event );
@@ -208,7 +201,6 @@ namespace audioscrobbler
         void onTrayActivated(QSystemTrayIcon::ActivationReason);
         void onCorrected(QString correction);
 
-        void onSkipTriggered();
         void onTagTriggered();
         void onShareTriggered();
 

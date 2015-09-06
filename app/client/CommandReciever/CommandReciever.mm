@@ -24,7 +24,6 @@
 #include <lastfm/Track.h>
 
 #include "../Application.h"
-#include "../Services/RadioService/RadioService.h"
 
 #include "CommandReciever.h"
 
@@ -129,9 +128,6 @@ CommandReciever::CommandReciever( QObject *parent )
                                     QDir::home().filePath( "Library/Application Support/Airfoil/TrackTitles/fm.last.Scrobbler.scpt" ) );
 
     aApp->delegate()->setCommandObserver( this );
-
-    connect( &RadioService::instance(), SIGNAL(trackSpooled(Track)), SLOT(onTrackSpooled(Track)) );
-    connect( &RadioService::instance(), SIGNAL(stopped()), SLOT(onStopped()));
 }
 
 bool

@@ -24,7 +24,6 @@
 
 #include "../Application.h"
 #include "../Services/ScrobbleService.h"
-#include "../Services/RadioService.h"
 #include "../Services/AnalyticsService.h"
 #include "ScrobbleControls.h"
 #include "BioWidget.h"
@@ -199,8 +198,6 @@ MetadataWidget::setTrackDetails( const Track& track )
         else
             ui->trackAlbum->setText( tr("from %1").arg( Label::anchor( track.album().www().toString(), track.album())));
     }
-
-    ui->radio->setStation( RadioStation::similar( Artist( track.artist().name() ) ), tr( "Play %1 Radio" ).arg( track.artist().name() ) );
 
     connect( track.signalProxy(), SIGNAL(loveToggled(bool)), ui->scrobbleControls, SLOT(setLoveChecked(bool)));
 }
@@ -643,9 +640,6 @@ MetadataWidget::getContextString( const Track& track )
            }
            break;
        case lastfm::TrackContext::User:
-           // Whitelist multi-user station
-           if ( !RadioService::instance().station().url().startsWith("lastfm://users/") )
-               break;
        case lastfm::TrackContext::Friend:
        case lastfm::TrackContext::Neighbour:
            {
@@ -719,6 +713,6 @@ MetadataWidget::setBackButtonVisible( bool visible )
    ui->scrobbleControls->ui.love->setVisible( visible );
 
    // keep the love button on for iTunes tracks
-   if ( !visible && m_track.source() != Track::LastFmRadio )
+   if ( !visible )
        ui->scrobbleControls->ui.love->setVisible( true );
 }

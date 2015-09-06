@@ -25,8 +25,6 @@
 
 #include "../Application.h"
 
-#include "QuickStartWidget.h"
-
 #include "lib/unicorn/widgets/Label.h"
 
 #ifdef Q_OS_WIN
@@ -94,7 +92,6 @@ NothingPlayingWidget::onSessionChanged( const unicorn::Session& session )
     if ( session.isValid() )
     {
         ui->splitter->setVisible( session.youRadio() );
-        ui->quickStart->setVisible( session.youRadio() );
         ui->start->setVisible( session.youRadio() );
     }
 }

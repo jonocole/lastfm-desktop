@@ -29,7 +29,6 @@
 
 #include "PlayableItemWidget.h"
 #include "../Application.h"
-#include "../Services/RadioService.h"
 #include "../Services/AnalyticsService.h"
 
 PlayableItemWidget::PlayableItemWidget( QWidget* parent )
@@ -61,8 +60,6 @@ PlayableItemWidget::PlayableItemWidget( const RadioStation& rs, const QString& t
 
     setCursor( Qt::PointingHandCursor );
 
-    connect( &RadioService::instance(), SIGNAL(tuningIn(RadioStation)), SLOT(onRadioChanged(RadioStation)) );
-    connect( &RadioService::instance(), SIGNAL(trackSpooled(Track)), SLOT(onRadioChanged()));
 
     connect( aApp, SIGNAL(sessionChanged(unicorn::Session)), SLOT(onSessionChanged(unicorn::Session)) );
 }
@@ -120,9 +117,6 @@ PlayableItemWidget::setStation(const RadioStation& rs, const QString& title, con
 
     m_description = description;
 
-    connect( &RadioService::instance(), SIGNAL(tuningIn(RadioStation)), SLOT(onRadioChanged(RadioStation)) );
-    connect( &RadioService::instance(), SIGNAL(trackSpooled(Track)), SLOT(onRadioChanged()));
-
     connect( this, SIGNAL(clicked()), SLOT(play()));
 
     update();
@@ -139,14 +133,12 @@ void
 PlayableItemWidget::play()
 {
     AnalyticsService::instance().sendEvent( aApp->currentCategory(), PLAY_CLICKED, objectName() );
-    RadioService::instance().play( m_rs );
 }
 
 void
 PlayableItemWidget::playNext()
 {
     AnalyticsService::instance().sendEvent( aApp->currentCategory(), PLAY_NEXT_CLICKED, objectName() );
-    RadioService::instance().playNext( m_rs );
 }
 
 RadioStation
@@ -172,7 +164,6 @@ PlayableItemWidget::playMulti()
     if ( m_rs.url().startsWith("lastfm://user/") )
     {
         AnalyticsService::instance().sendEvent( aApp->currentCategory(), PLAY_MULTI_CLICKED, objectName());
-        RadioService::instance().play( getMultiStation() );
     }
 }
 
@@ -182,14 +173,12 @@ PlayableItemWidget::playMultiNext()
     if ( m_rs.url().startsWith("lastfm://user/") )
     {
         AnalyticsService::instance().sendEvent( aApp->currentCategory(), PLAY_MULTI_NEXT_CLICKED, objectName());
-        RadioService::instance().playNext( getMultiStation() );
     }
 }
 
 void
 PlayableItemWidget::onRadioChanged()
 {
-    onRadioChanged( RadioService::instance().station() );
 }
 
 
@@ -317,9 +306,6 @@ PlayableItemWidget::contextMenuEvent( QContextMenuEvent* event )
 
     contextMenu->addAction( tr( "Play %1" ).arg( m_rs.title() ), this, SLOT(play()));
 
-    if ( RadioService::instance().state() == Playing )
-        contextMenu->addAction( tr( "Cue %1" ).arg( m_rs.title() ), this, SLOT(playNext()));
-
     if ( m_rs.url().startsWith( "lastfm://user/" )
          &&  ( m_rs.url().endsWith( "/library" ) || m_rs.url().endsWith( "/personal" ) )
          && m_rs.url() != RadioStation::library( User() ).url() )
@@ -332,8 +318,6 @@ PlayableItemWidget::contextMenuEvent( QContextMenuEvent* event )
         // let them start a multi-station with yours
         contextMenu->addSeparator();
         contextMenu->addAction( tr( "Play %1 and %2 Library Radio" ).arg( m_rs.url().mid( 14, endPos - 14 ), User().name() ), this, SLOT(playMulti()));
-        if ( RadioService::instance().state() == Playing )
-            contextMenu->addAction( tr( "Cue %1 and %2 Library Radio" ).arg( m_rs.url().mid( 14, endPos - 14 ), User().name() ), this, SLOT(playMultiNext()));
     }
 
     if ( contextMenu->actions().count() )

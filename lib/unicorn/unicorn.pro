@@ -1,6 +1,6 @@
 TARGET = unicorn
 TEMPLATE = lib
-CONFIG += dll lastfm sparkle growl logger
+CONFIG += dll lastfm sparkle logger
 unix:!mac {
     CONFIG -= dll
     CONFIG += staticlib
@@ -162,13 +162,11 @@ macx:SOURCES += mac/AppleScript.cpp \
                 plugins/ITunesPluginInstaller.cpp
 
 macx:OBJECTIVE_SOURCES += UnicornApplication_mac.mm \
-                          notify/Notify.mm \
                           Updater/Updater_mac.mm \
                           UnicornApplicationDelegate.mm \
                           dialogs/CloseAppsDialog_mac.mm
 
 macx:HEADERS += mac/AppleScript.h \
-                notify/Notify.h \
                 UnicornApplicationDelegate.h \
                 plugins/ITunesPluginInstaller.h \
 

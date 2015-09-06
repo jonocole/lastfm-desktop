@@ -31,7 +31,6 @@
 #include "StatusBar.h"
 
 #include "../Services/ScrobbleService.h"
-#include "../Services/RadioService.h"
 #include "../MediaDevices/DeviceScrobbler.h"
 #include "../Application.h"
 

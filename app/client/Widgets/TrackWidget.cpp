@@ -22,6 +22,7 @@
 #include <QTimer>
 
 #include <lastfm/Library.h>
+#include <lastfm/RadioStation.h>
 
 #include <lib/unicorn/dialogs/ShareDialog.h>
 #include <lib/unicorn/dialogs/TagDialog.h>
@@ -29,7 +30,6 @@
 #include <lib/unicorn/TrackImageFetcher.h>
 
 #include "../Application.h"
-#include "../Services/RadioService/RadioService.h"
 #include "../Services/ScrobbleService/ScrobbleService.h"
 #include "../Services/AnalyticsService.h"
 
@@ -112,9 +112,6 @@ TrackWidget::contextMenuEvent( QContextMenuEvent* event )
 
     contextMenu->addAction( tr( "Play %1 Radio" ).arg( m_track.artist().name() ), this, SLOT(play()));
 
-    if ( RadioService::instance().state() == Playing )
-        contextMenu->addAction( tr( "Cue %1 Radio" ).arg( m_track.artist().name() ), this, SLOT(playNext()));
-
     if ( contextMenu->actions().count() )
         contextMenu->exec( event->globalPos() );
 }
@@ -124,7 +121,6 @@ TrackWidget::play()
 {
     lastfm::RadioStation rs = lastfm::RadioStation::similar( m_track.artist().name() );
     rs.setTitle( tr( "%1 Radio" ).arg( m_track.artist().name() ) );
-    RadioService::instance().play( rs );
 }
 
 void
@@ -132,7 +128,6 @@ TrackWidget::playNext()
 {
     lastfm::RadioStation rs = lastfm::RadioStation::similar( m_track.artist().name() );
     rs.setTitle( tr( "%1 Radio" ).arg( m_track.artist().name() ) );
-    RadioService::instance().playNext( rs );
 }
 
 void

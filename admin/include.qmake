@@ -98,7 +98,7 @@ macx:CONFIG( app_bundle ): contains( TEMPLATE, app ) {
                         mv -f \"$${ROOT_DIR}/i18n/\"*.qm \"$${BUNDLE_DIR}/Contents/Resources/qm/\";
 
     ## install_name_tool / copy frameworks, dylibs etc
-    QMAKE_POST_LINK += $$DISTDIR/bundleFrameworks.sh \'$$BUNDLE_DIR\';
+    # QMAKE_POST_LINK += $$DISTDIR/bundleFrameworks.sh \'$$BUNDLE_DIR\';
 
     QMAKE_POST_LINK += find \'$$BUNDLE_DIR\' -iname \\*Headers -print0| xargs -0 rm -rf; \
                         find \'$$BUNDLE_DIR\' -iname \\*_debug -print0|xargs -0 rm

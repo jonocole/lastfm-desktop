@@ -53,16 +53,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QuickStartWidget" name="quickStart" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QFrame" name="splitter">
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -128,14 +118,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QuickStartWidget</class>
-   <extends>QWidget</extends>
-   <header>../Widgets/QuickStartWidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

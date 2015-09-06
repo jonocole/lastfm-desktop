@@ -23,10 +23,8 @@
 #include <QMovie>
 
 #include "NowPlayingWidget.h"
-#include "PlaybackControlsWidget.h"
 #include "MetadataWidget.h"
 
-#include "../Services/RadioService.h"
 #include "../Services/ScrobbleService.h"
 
 NowPlayingWidget::NowPlayingWidget(QWidget *parent)
@@ -36,7 +34,6 @@ NowPlayingWidget::NowPlayingWidget(QWidget *parent)
     layout->setContentsMargins( 0, 0, 0, 0 );
     layout->setSpacing( 0 );
 
-    layout->addWidget( ui.playbackControls = new PlaybackControlsWidget( this ) );
     layout->addWidget( ui.stack = new QStackedWidget( this ) );
 
     ui.stack->addWidget( ui.spinner = new QLabel() );
@@ -49,16 +46,9 @@ NowPlayingWidget::NowPlayingWidget(QWidget *parent)
 
     ui.metadata = 0;
 
-    connect( &RadioService::instance(), SIGNAL(tuningIn(RadioStation)), SLOT(onTuningIn(RadioStation)) );
 
     connect( &ScrobbleService::instance(), SIGNAL(trackStarted(lastfm::Track,lastfm::Track)), SLOT(onTrackStarted(lastfm::Track,lastfm::Track)) );
     connect( &ScrobbleService::instance(), SIGNAL(stopped()), SLOT(onStopped()) );
-}
-
-PlaybackControlsWidget*
-NowPlayingWidget::playbackControls() const
-{
-    return ui.playbackControls;
 }
 
 void

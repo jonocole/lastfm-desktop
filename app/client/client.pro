@@ -36,7 +36,6 @@ SUBDIRS=PrefPane
 SOURCES += \
     AudioscrobblerSettings.cpp \
     Application.cpp \
-    StationSearch.cpp \
     ScrobSocket.cpp \
     MediaDevices/MediaDevice.cpp \
     MediaDevices/IpodDevice.cpp \
@@ -52,8 +51,6 @@ SOURCES += \
     Settings/GeneralSettingsWidget.cpp \
     Services/ScrobbleService/StopWatch.cpp \
     Services/ScrobbleService/ScrobbleService.cpp \
-    Services/RadioService/RadioService.cpp \
-    Services/RadioService/RadioConnection.cpp \
     Dialogs/DiagnosticsDialog.cpp \
     Bootstrapper/PluginBootstrapper.cpp \
     Bootstrapper/ITunesDevice/itunesdevice.cpp \
@@ -63,7 +60,6 @@ SOURCES += \
     Widgets/TitleBar.cpp \
     Widgets/StatusBar.cpp \
     Widgets/SideBar.cpp \
-    Widgets/RadioWidget.cpp \
     Widgets/NothingPlayingWidget.cpp \
     Widgets/NowPlayingStackedWidget.cpp \
     Widgets/ProfileWidget.cpp \
@@ -75,9 +71,7 @@ SOURCES += \
     Widgets/ShortcutEdit.cpp \
     Widgets/ProfileArtistWidget.cpp \
     Widgets/ScrobbleControls.cpp \
-    Widgets/QuickStartWidget.cpp \
     Widgets/PointyArrow.cpp \
-    Widgets/PlaybackControlsWidget.cpp \
     Widgets/PlayableItemWidget.cpp \
     Widgets/NowPlayingWidget.cpp \
     Widgets/RefreshButton.cpp \
@@ -113,13 +107,9 @@ HEADERS += \
     AudioscrobblerSettings.h \
     Application.h \
     MainWindow.h \
-    StationSearch.h \
-    Services/RadioService/RadioConnection.h \
     Services/ScrobbleService.h \
     Services/ScrobbleService/StopWatch.h \
     Services/ScrobbleService/ScrobbleService.h \
-    Services/RadioService.h \
-    Services/RadioService/RadioService.h \
     MediaDevices/MediaDevice.h \
     MediaDevices/IpodDevice.h \
     MediaDevices/DeviceScrobbler.h \
@@ -143,12 +133,9 @@ HEADERS += \
     Widgets/StatusBar.h \
     Widgets/SideBar.h \
     Widgets/ScrobbleControls.h \
-    Widgets/QuickStartWidget.h \
     Widgets/PointyArrow.h \
-    Widgets/PlaybackControlsWidget.h \
     Widgets/PlayableItemWidget.h \
     Widgets/NowPlayingWidget.h \
-    Widgets/RadioWidget.h \
     Widgets/NothingPlayingWidget.h \
     Widgets/NowPlayingStackedWidget.h \
     Widgets/ProfileWidget.h \
@@ -199,7 +186,6 @@ mac:OBJECTIVE_SOURCES += CommandReciever/CommandReciever.mm \
                             ../../lib/3rdparty/SPMediaKeyTap/SPInvocationGrabbing/NSObject+SPInvocationGrabbing.m
 
 FORMS += \
-    Widgets/PlaybackControlsWidget.ui \
     Dialogs/DiagnosticsDialog.ui \
     Widgets/MetadataWidget.ui \
     Settings/PreferencesDialog.ui \
@@ -216,7 +202,6 @@ FORMS += \
     Dialogs/LicensesDialog.ui \
     Widgets/ScrobblesWidget.ui \
     Widgets/ProfileWidget.ui \
-    Widgets/RadioWidget.ui
 
 unix:!mac {
     CONFIG += qdbus
